@@ -35,7 +35,7 @@ class ofApp : public ofBaseApp{
     bool drag;
     int first = -1;
     int second;
-    ofParameter<int>background;
+    ofParameter<int>background,trail;
     
     ofParameter<bool>maskChevrons;
     ofParameter<bool>maskArches;
@@ -49,21 +49,23 @@ class ofApp : public ofBaseApp{
     
     
     ofParameter<float>blurSize;
-    ofParameter<float>intensity;
+    ofParameter<float>intensity,linespeed;
     
     ofParameter<float>saturation;
     ofParameter<float>brightness;
     ofParameter<float>contrast;
     
+    ofParameter<float>lineIntensity;
+    
     vector<ofVec2f>texPoints;
     ofxPanel gui;
     ofParameter<float>u_balance,u_contrast,u_zoom,ikeda_amount, ikeda_x, ikeda_y;
-    ofParameterGroup cloud,global, utzShader;
+    ofParameterGroup cloud,global, utzShader, lineGroup;
     ofParameterGroup ikedaGroup;
     ofParameter<ofColor>u_color1,u_color2,u_color3;
     ofParameter<bool>color_auto, b_lines, b_cloud, b_windData, b_ikeda,ikeda_up;
     ofParameter<float> cbrightness, csaturation, hue;
-    vector<float>lines;
+    vector<ofPoint>lines;
     
     Model model;
     

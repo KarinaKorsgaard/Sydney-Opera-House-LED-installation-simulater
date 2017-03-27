@@ -1,34 +1,40 @@
 <gui>
-	<u_color>255, 255, 255, 255</u_color>
+	<u_color>37, 41, 255, 255</u_color>
 	<brightness>102</brightness>
 	<saturation>68.85</saturation>
-	<auto>1</auto>
-	<cloud>1<u_balance>0.816327</u_balance>
-		<u_contrast>2.29592</u_contrast>
-		<u_zoom>5.10204</u_zoom>
-		<u_color>203, 160, 255, 255</u_color>
+	<auto>0</auto>
+	<cloud>0<u_balance>1</u_balance>
+		<u_contrast>6.83673</u_contrast>
+		<u_zoom>41.3265</u_zoom>
+		<u_color>51, 53, 255, 255</u_color>
 	<cbrightness>255</cbrightness>
 		<csaturation>94.9745</csaturation>
-		<hue>189.601</hue>
+		<hue>119.694</hue>
 	</cloud>
 <gui/>
 <hue>233.775</hue>
 <lines>1</lines>
-	<wind>0</wind>
-	<ikeda>0<u_amount>0.80102</u_amount>
-		<u_xGrid>1</u_xGrid>
-		<u_yGrid>1</u_yGrid>
-		<up>1</up>
+	<wind>1</wind>
+	<ikeda>0<u_amount>0.535714</u_amount>
+		<u_xGrid>0.22449</u_xGrid>
+		<u_yGrid>0.239796</u_yGrid>
+		<up>0</up>
 	</ikeda>
 <calculate>0</calculate>
 <maskChevrons>0</maskChevrons>
 	<maskArches>0</maskArches>
-	<background>159</background>
+	<background>66</background>
 <generalAdjus>
 		<blurSize>0.408163</blurSize>
 		<intensity>0.765306</intensity>
 		<saturation>1</saturation>
-		<brightness>0.0612245</brightness>
-		<contrast>3.26531</contrast>
+		<brightness>0.510204</brightness>
+		<contrast>5</contrast>
 	</generalAdjus>
+<trail>11</trail>
+	<linespeed>3.57</linespeed>
+<line_parameters>
+		<line_intensity>0.882653</line_intensity>
+		<linespeed>34.2857</linespeed>
+	</line_parameters>
 </gui>

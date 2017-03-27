@@ -8,9 +8,6 @@ void ofApp::setup(){
     ikeda.load("ikeda");
     utz.load("utz");
     
-    for(int i = 0 ; i< 50 ; i++){
-        lines.push_back(i*50);
-    }
 
 //    cam.setPosition(0., 0., -35);
     cam.setCursorDrawEnabled(true);
@@ -53,6 +50,7 @@ void ofApp::setup(){
     global.add(maskChevrons.set("maskChevrons",false));
     global.add(maskArches.set("maskArches",false));
     global.add(background.set("background",10,10,255));
+    global.add(trail.set("trail",10,10,20));
     global.add(u_color1.set("u_color",ofColor(255,255,255),ofColor(0,0,0),ofColor(255,255,255)));
     global.add(color_auto.set("auto",false));
     
@@ -71,7 +69,7 @@ void ofApp::setup(){
 //    ofParameter<float>brightness;
 //    ofParameter<float>contrast;
 //    
-    global.add(b_lines.set("lines",false));
+    global.add(b_lines.set("lines",true));
     global.add(b_cloud.set("cloud",false));
     global.add(b_windData.set("wind",false));
     global.add(b_ikeda.set("ikeda",false));
@@ -94,12 +92,14 @@ void ofApp::setup(){
     ikedaGroup.add(ikeda_up.set("up",true));
    // ikedaGroup.add(u_color2.set("u_color",ofColor(255,255,255),ofColor(0,0,0),ofColor(255,255,255)));
     
+    lineGroup.setName("line parameters");
+    lineGroup.add(lineIntensity.set("line intensity",0,0,1.));
+    lineGroup.add(linespeed.set("linespeed", 1.8,0.,60.));
     
-
     global.add(utzShader);
     global.add(cloud);
     global.add(ikedaGroup);
-    
+    global.add(lineGroup);
     gui.setup(global);
     gui.loadFromFile("settings.xml");
 
@@ -123,7 +123,9 @@ void ofApp::update(){
    // u_color2=c;
 
     fbo->begin();
-    ofClear(0);
+   // ofSetColor(0,0,0,trail);
+   // ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
+  //  ofClear(0);
     ofBackground(0);
     if(b_windData){
         
@@ -162,23 +164,31 @@ void ofApp::update(){
     }
     
     
+
+    if(maskChevrons)chevronMask.draw(0,0);
+    if(maskArches)archMask.draw(0,0);
+    
     if(b_lines){
         ofPushStyle();
         ofSetColor(u_color1);
-        ofSetLineWidth(1);
+        ofSetLineWidth(3);
         ofNoFill();
-        
-        for(int i = 0 ; i< lines.size() ; i++){
-            lines[i]+=0.5;
-            
-            if(lines[i]<fbo->getHeight()){
-                ofDrawLine(0,lines[i],fbo->getWidth(),lines[i]);
-            }else lines[i]=0;
+        for(int i = 0;i<lines.size();i++){
+            lines[i].y+=linespeed*ofGetLastFrameTime();
+            ofDrawLine(lines[i].x ,lines[i].y-1 , lines[i].x  ,lines[i].y+1);
+           
+        }
+
+        int indx = 0;
+        for (vector<ofPoint>::iterator it=lines.begin(); it!=lines.end();)    {
+            if(it->y>fbo->getHeight())
+                it = lines.erase(it);
+            else
+                ++it;
         }
         ofPopStyle();
+        if(ofRandom(1)<lineIntensity)lines.push_back(ofPoint(  int(ofRandom(18))*40 + 40 , 0) );
     }
-    if(maskChevrons)chevronMask.draw(0,0);
-    if(maskArches)archMask.draw(0,0);
     
     fbo->end();
     //dof.setFocalDistance(ofMap(sin(ofGetElapsedTimef()/2),-1,1, 20, 150));
