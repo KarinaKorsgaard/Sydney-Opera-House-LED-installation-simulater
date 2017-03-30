@@ -37,7 +37,7 @@
 		<intensity>0.765306</intensity>
 		<saturation>0.459184</saturation>
 		<brightness>0.102041</brightness>
-		<contrast>1.83673</contrast>
+		<contrast>2.5</contrast>
 	</generalAdjus>
 <trail>11</trail>
 	<linespeed>3.57</linespeed>
@@ -47,9 +47,9 @@
 	</line_parameters>
 <heatmap>
 		<heatmap>1</heatmap>
-		<color>0, 116, 67, 255</color>
-		<tempo>0.765306</tempo>
-	<alpha>0</alpha>
+		<color>255, 77, 75, 255</color>
+		<tempo>2.44898</tempo>
+	<alpha>1</alpha>
 	</heatmap>
 	<glow>
 		<glow>0</glow>
@@ -59,7 +59,7 @@
 		<para2>1</para2>
 		<para3>0.908163</para3>
 		<direction>0</direction>
-	<alpha>0</alpha>
+	<alpha>1</alpha>
 	</glow>
 	<bubbles>
 		<color>255, 255, 255, 255</color>
@@ -69,10 +69,10 @@
 		<intensity2>0</intensity2>
 	</bubbles>
 <force>
-		<color>0, 146, 193, 255</color>
-		<tempo>3.57143</tempo>
-		<thickNess>3.21429</thickNess>
-		<intensity>0</intensity>
+		<color>255, 146, 193, 255</color>
+		<tempo>9.18367</tempo>
+		<thickNess>4.28571</thickNess>
+		<intensity>0.244898</intensity>
 	</force>
 <swiper>
 		<color>255, 255, 255, 255</color>
@@ -84,4 +84,7 @@
 		<alpha>1</alpha>
 	<play>1</play>
 	</whale_mov>
+<videos>
+		<play>1</play>
+	</videos>
 </gui>

@@ -70,7 +70,7 @@ void ofApp::setup(){
     bubbles.setup("bubbles");
     forces.setup("force",model.chevCoord);
     swiper.setup("swiper",&ledControl);
-    video.setup("whale.mov");
+    video.setup("video0.mov");
     // add all the parameters to the general gui
     global.add(utzShader);
     
@@ -216,6 +216,9 @@ void ofApp::keyPressed(int key){
     if(key=='s')model.saveMapping();
     
     if(key=='p')showProfile=!showProfile;
+    
+    if(key-'0'<4)
+        video.loadNew("video"+ofToString(key-'0')+".mov");
     
 //    if(key == 'x')moveX=true;
 //    if(key == 'y')moveX=false;

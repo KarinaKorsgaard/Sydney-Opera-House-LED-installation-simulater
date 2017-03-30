@@ -17,16 +17,18 @@ public:
     void setup(string file){
         video.load(file);
         video.setLoopState(OF_LOOP_NORMAL);
+        video.setVolume(0);
         video.play();
-        parameters.setName(file);
+        
+        parameters.setName("videos");
         parameters.add(play.set("play",true));
     }
     void update(){
         if(play){
-            video.play();
+            video.setPaused(false);
             video.update();
         }
-        else video.stop();
+        else if(video.isPaused())video.setPaused(true);
     }
     void draw(bool stretch = true){
         
@@ -37,6 +39,13 @@ public:
             else video.draw(0,0);
             ofPopStyle();
         }
+    }
+    void loadNew(string file){
+      //  video.unload();
+        
+        video.load(file);
+        video.setVolume(0);
+        video.play();
     }
     ofParameterGroup parameters;
 private:
