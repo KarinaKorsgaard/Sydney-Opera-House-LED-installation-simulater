@@ -10,16 +10,7 @@
 #define model_h
 
 #include "ofxXmlSettings.h"
-
-struct LED{
-    
-    ofRectangle rect;
-    int numLEDS;
-    ofMesh mesh;
-    
-    ofPoint handle1;
-    ofPoint handle2;
-};
+#include "define.h"
 
 
 class Model{
@@ -224,6 +215,7 @@ public:
                 l.handle1.set(xCoord, 0);
                 l.handle2.set(xCoord, indx*texCoordSpacing);
           //  }
+            l.numLEDS = indx;
             leds.push_back(l);
         }
     }
@@ -259,7 +251,10 @@ public:
                         LED led;
                         led.handle1 = m1.getTexCoord(m);
                         led.handle2 = m2.getTexCoord(m);
-                        
+                        float dist = ofDist(led.handle1.x,led.handle1.y,led.handle2.x,led.handle2.y);
+                        dist = 1./dist * 3.;
+                        chevCoord.push_back(m1.getTexCoord(m).getInterpolated(m2.getTexCoord(m),0.5));
+                        int indx = 0;
                         while(interpol<2){
                             ofVec3f v1 = m1.getVertices()[m];
                             ofVec3f v3 ;
@@ -281,9 +276,10 @@ public:
                             ofVec2f t1 = m1.getTexCoord(m);
                             ofVec2f t2 = m2.getTexCoord(m);
                             c.addTexCoord(t1.interpolate(t2,interpol/2.));
-                            interpol+=0.1;
+                            interpol+=dist;
+                            indx++;
                         }
-                        
+                        led.numLEDS = indx;
                         
                         
                         // profiles:
@@ -388,7 +384,7 @@ public:
     vector<LED>leds;
     vector<ofMesh>shc;
     vector<ofMesh>chevs;
-    
+    vector<ofVec2f>chevCoord;
 };
 
 #endif /* model_h */

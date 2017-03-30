@@ -5,6 +5,9 @@
 #include "ofxGui.h"
 #include "model.h"
 #include "ofxGrabCam.h"
+#include "content.h"
+
+#include "define.h"
 
 class ofApp : public ofBaseApp{
 
@@ -28,7 +31,7 @@ class ofApp : public ofBaseApp{
     int adjX=0;
     int adjZ=0;
     ofVec3f center;
-    map<int,float>data;
+//    map<int,float>data;
     bool showProfile = true;
     int meshVertic = 0;
     bool debug = false;
@@ -41,32 +44,32 @@ class ofApp : public ofBaseApp{
     ofParameter<bool>maskArches;
     ofxGrabCam cam;
     shared_ptr <ofFbo> fbo;
-    float hueDirection=0.3;
-    
-    ofxAutoReloadedShader shader;
+//    float hueDirection=0.3;
+//    
+//    ofxAutoReloadedShader shader;
     ofxAutoReloadedShader wind,ikeda,utz;
     
-    
-    
-    ofParameter<float>blurSize;
-    ofParameter<float>intensity,linespeed;
-    
+//
+//    
+//    ofParameter<float>blurSize;
+//    ofParameter<float>intensity,linespeed;
+//    
     ofParameter<float>saturation;
     ofParameter<float>brightness;
     ofParameter<float>contrast;
     
-    ofParameter<float>lineIntensity;
-    
+//    ofParameter<float>lineIntensity;
+//    
     vector<ofVec2f>texPoints;
     ofxPanel gui;
-    ofParameter<float>u_balance,u_contrast,u_zoom,ikeda_amount, ikeda_x, ikeda_y;
+//    ofParameter<float>u_balance,u_contrast,u_zoom,ikeda_amount, ikeda_x, ikeda_y;
     ofParameterGroup cloud,global, utzShader, lineGroup;
-    ofParameterGroup ikedaGroup;
-    ofParameter<ofColor>u_color1,u_color2,u_color3;
-    ofParameter<bool>color_auto, b_lines, b_cloud, b_windData, b_ikeda,ikeda_up;
-    ofParameter<float> cbrightness, csaturation, hue;
-    vector<ofPoint>lines;
-    
+//    ofParameterGroup ikedaGroup;
+//    ofParameter<ofColor>u_color1,u_color2,u_color3;
+//    ofParameter<bool>color_auto, b_lines, b_cloud, b_windData, b_ikeda,ikeda_up;
+//    ofParameter<float> cbrightness, csaturation, hue;
+//    vector<ofPoint>lines;
+//    
     Model model;
     
     ofParameter<bool>calculateNewCoords;
@@ -75,5 +78,14 @@ class ofApp : public ofBaseApp{
     ofFbo archMask;
 
     ofFbo final;
+    
+    
+    ShaderContent shaders[3];
+    videoContent video;
+    Lines bubbles;
+    Forces forces;
+    Swiper swiper;
+    LEDcontrol ledControl;
+
 };
 

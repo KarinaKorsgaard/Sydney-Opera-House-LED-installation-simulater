@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A683723BED1F1A36EE7D284BA776FC46D6E2CE16",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E71E5D7A16B01AB780ADC5C4D1DF114B82BFDD6D" : 0,
+    "A683723BED1F1A36EE7D284BA776FC46D6E2CE16" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "593C202C-59B3-4E93-A65A-B3D64D17BFD5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E71E5D7A16B01AB780ADC5C4D1DF114B82BFDD6D" : "..\/..\/addons\/ofxGrabCam",
+    "A683723BED1F1A36EE7D284BA776FC46D6E2CE16" : "_vivid_assimpLoader\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "_vivid_assimpLoader",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "_vivid_assimpLoader.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/KarinaKorsgaard\/vividModel.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A683723BED1F1A36EE7D284BA776FC46D6E2CE16"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/elliotwoods\/ofxGrabCam.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E71E5D7A16B01AB780ADC5C4D1DF114B82BFDD6D"
+    }
+  ]
+}

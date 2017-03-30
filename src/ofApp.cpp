@@ -3,198 +3,126 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    shader.load("glow");
-    wind.load("heatmap");
-    ikeda.load("ikeda");
+// load shader to adjust contrast brightness and saturation
     utz.load("utz");
     
-
-//    cam.setPosition(0., 0., -35);
+    
+    // setup camera
     cam.setCursorDrawEnabled(true);
     cam.setFov(70);
-  //  cam.setGlobalPosition( 0,0,0 );
-   
     center = ofVec3f(.2,1.2,0);
     cam.setGlobalPosition( -10.,9.,-200 );
-
     cam.lookAt(center);
     
+    // setup model
     model.setup();
+    ledControl.leds = &model.leds;
+    
+    
+    // allocate framebuffers with arbTex disabled
     ofDisableArbTex();
     fbo= shared_ptr<ofFbo>(new ofFbo);
-    fbo->allocate(20*2*20+20, 1420.*PI/10.);
-    chevronMask.allocate(20*2*20+20, 1420.*PI/10.);
-    archMask.allocate(20*2*20+20, 1420.*PI/10.);
+    fbo->allocate(TEX_W, TEX_H);
+    chevronMask.allocate(TEX_W, TEX_H);
+    archMask.allocate(TEX_W, TEX_H);
     ofEnableArbTex();
-    final.allocate(20*2*20+20, 1420.*PI/10.);
+    
+    // final framebuffer
+    final.allocate(TEX_W, TEX_H);
   
+    // draw a mask in the chevron framebuffer
     chevronMask.begin();
     ofClear(0);
     for(int i = 0; i < 20;i++){
         ofSetColor(0);
-        ofDrawRectangle(40 + 40*i + 1, 0, 38, 1420.*PI/10.);
+        ofDrawRectangle(40 + 40*i + 1, 0, 38, TEX_H);
     }
     chevronMask.end();
     
+    // draw a mask in the arch framebuffer
     archMask.begin();
     ofClear(0);
     for(int i = 0; i < 20;i++){
         ofSetColor(0);
-        ofDrawRectangle(40 + 40*i -1 , 0, 2 , 1420.*PI/10.);
+        ofDrawRectangle(40 + 40*i -1 , 0, 2 , TEX_H);
     }
     archMask.end();
     
     
+    // setup general gui
     global.setName("gui");
     global.add(calculateNewCoords.set("calculate",false));
     global.add(maskChevrons.set("maskChevrons",false));
     global.add(maskArches.set("maskArches",false));
     global.add(background.set("background",10,10,255));
-    global.add(trail.set("trail",10,10,20));
-    global.add(u_color1.set("u_color",ofColor(255,255,255),ofColor(0,0,0),ofColor(255,255,255)));
-    global.add(color_auto.set("auto",false));
-    
     
     utzShader.setName("generalAdjus");
-//    utzShader.add(blurSize.set("blurSize",0,0,10.));
-//    utzShader.add(intensity.set("intensity",0,0,10.));
     utzShader.add(saturation.set("saturation",0,0,1.));
     utzShader.add(brightness.set("brightness",0,0,1.));
     utzShader.add(contrast.set("contrast",0,0,5.));
+
+    // setup various instances of shader class
+    shaders[0].setup("heatmap",0);
+    shaders[1].setup("glow");
+    shaders[2].setup("ikeda");
     
-//    ofParameter<float>blurSize;
-//    ofParameter<float>intensity;
-//    
-//    ofParameter<float>saturation;
-//    ofParameter<float>brightness;
-//    ofParameter<float>contrast;
-//    
-    global.add(b_lines.set("lines",true));
-    global.add(b_cloud.set("cloud",false));
-    global.add(b_windData.set("wind",false));
-    global.add(b_ikeda.set("ikeda",false));
-    
-    cloud.setName("cloud");
-    cloud.add(u_balance.set("u_balance",0.,0.,1.));
-//    cloud.add(cbrightness.set("cbrightness",0,0,255));
-//    cloud.add(csaturation.set("csaturation",0,0,255));
-    cloud.add(hue.set("hue",0,0,255));
-//
-    cloud.add(u_contrast.set("u_contrast",0.,0.,10.));
-    cloud.add(u_zoom.set("u_zoom",0.,0.,100.));
-    cloud.add(u_color2.set("u_color",ofColor(255,255,255),ofColor(0,0,0),ofColor(255,255,255)));
-    
-    
-    ikedaGroup.setName("ikeda");
-    ikedaGroup.add(ikeda_amount.set("u_amount",0.,0.,1.));
-    ikedaGroup.add(ikeda_x.set("u_xGrid",0.,0.,1.));
-    ikedaGroup.add(ikeda_y.set("u_yGrid",0.,0.,1.));
-    ikedaGroup.add(ikeda_up.set("up",true));
-   // ikedaGroup.add(u_color2.set("u_color",ofColor(255,255,255),ofColor(0,0,0),ofColor(255,255,255)));
-    
-    lineGroup.setName("line parameters");
-    lineGroup.add(lineIntensity.set("line intensity",0,0,1.));
-    lineGroup.add(linespeed.set("linespeed", 1.8,0.,60.));
-    
+    // setup bubbles
+    bubbles.setup("bubbles");
+    forces.setup("force",model.chevCoord);
+    swiper.setup("swiper",&ledControl);
+    video.setup("whale.mov");
+    // add all the parameters to the general gui
     global.add(utzShader);
-    global.add(cloud);
-    global.add(ikedaGroup);
-    global.add(lineGroup);
+    for(int i = 0; i<3;i++){
+        global.add(shaders[i].parameters);
+    }
+    global.add(video.parameters);
+    global.add(bubbles.parameters);
+    global.add(forces.parameters);
+    global.add(swiper.parameters);
+
     gui.setup(global);
     gui.loadFromFile("settings.xml");
 
+    // set point size for led mesh in visualisation
     glPointSize(2.);
-
+    ofEnableAlphaBlending();
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    //cam.setCursorDrawEnabled(!debug);
     cam.setMouseActionsEnabled(!debug);
-//    if(color_auto){
-//        hue+=hueDirection;
-//        if(hue<1)hueDirection=0.3;
-//        if(hue>254)hueDirection=-0.3;
-//    }
     
-   // ofColor c;
-   // c.setHsb(hue, csaturation, cbrightness);
-   // u_color2=c;
-
+    bubbles.update();
+    forces.update();
+    swiper.update();
+    video.update();
+    
+    for(int i = 0; i<3;i++){
+        shaders[i].update();
+    }
+    
+    
+    // draw all shaders and lines to the framebuffer
     fbo->begin();
-   // ofSetColor(0,0,0,trail);
-   // ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
-  //  ofClear(0);
     ofBackground(0);
-    if(b_windData){
-        
-        wind.begin();
-        wind.setUniform2f("iResolution", ofVec2f(fbo->getWidth(),fbo->getHeight()));
-        wind.setUniform1f("iGlobalTime", ofGetElapsedTimef());
-       // wind.setUniform2f("iMouse", ofVec2f(ofGetMouseX(),ofGetMouseY()));
-        ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
-        wind.end();
+    video.draw();
+    for(int i = 0; i<3; i++){
+        shaders[i].draw();
     }
-    if(b_cloud){
-        shader.begin();
-        shader.setUniform2f("iResolution", ofVec2f(fbo->getWidth(),fbo->getHeight()));
-        shader.setUniform1f("iGlobalTime", ofGetElapsedTimef());
-        shader.setUniform1f("u_balance", u_balance);
-        shader.setUniform1f("u_contrast", u_contrast);
-        shader.setUniform1f("u_zoom", u_zoom);
-        shader.setUniform3f("u_color", ofVec3f(u_color2->r/255.0f,u_color2->g/255.0f,u_color2->b/255.0f));
-        ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
-        shader.end();
-    }
-    
-    if(b_ikeda){
-        
-        ikeda.begin();
-        ikeda.setUniform2f("iResolution", ofVec2f(fbo->getWidth(),fbo->getHeight()));
-        ikeda.setUniform1f("iGlobalTime", ofGetElapsedTimef());
-        ikeda.setUniform1f("u_amount", ikeda_amount);
-        ikeda.setUniform1f("u_xGrid", ikeda_x);
-        ikeda.setUniform1f("u_yGrid", ikeda_y);
-        ikeda.setUniform1i("up", ikeda_up);
-        //ikeda.setUniforms(ikedaGroup);
-        // ("up", ikeda_up);
-        ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
-        ikeda.end();
-    }
-    
-    
 
     if(maskChevrons)chevronMask.draw(0,0);
     if(maskArches)archMask.draw(0,0);
-    
-    if(b_lines){
-        ofPushStyle();
-        ofSetColor(u_color1);
-        ofSetLineWidth(3);
-        ofNoFill();
-        for(int i = 0;i<lines.size();i++){
-            lines[i].y+=linespeed*ofGetLastFrameTime();
-            ofDrawLine(lines[i].x ,lines[i].y-1 , lines[i].x  ,lines[i].y+1);
-           
-        }
-
-        int indx = 0;
-        for (vector<ofPoint>::iterator it=lines.begin(); it!=lines.end();)    {
-            if(it->y>fbo->getHeight())
-                it = lines.erase(it);
-            else
-                ++it;
-        }
-        ofPopStyle();
-        if(ofRandom(1)<lineIntensity)lines.push_back(ofPoint(  int(ofRandom(18))*40 + 40 , 0) );
-    }
+    bubbles.draw();
+    forces.draw();
+    swiper.draw();
     
     fbo->end();
-    //dof.setFocalDistance(ofMap(sin(ofGetElapsedTimef()/2),-1,1, 20, 150));
-    
-    
-  //  fbo->getTexture().bind();
+ 
+    // use the texture from the framebuffer as input to the shader controlling general brightness, contrast and saturation
     final.begin();
     ofClear(0);
     utz.begin();
@@ -202,33 +130,32 @@ void ofApp::update(){
     utz.setUniform1f("brightness", brightness);
     utz.setUniform1f("contrast", contrast);
     utz.setUniform1f("saturation", saturation);
-    
-    utz.setUniform1f("blurSize", blurSize);
-    utz.setUniform1f("intensity", intensity);
     utz.setUniformTexture("tex", fbo->getTexture(), 1);
-    
     ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
     utz.end();
     final.end();
-   // fbo->getTexture().unbind();
+
     
+    // re calculate texture coords if mapping is changed
     if(calculateNewCoords){
         for(int i = 0 ; i<model.leds.size();i++){
-            
-            
             for(int v = 0; v<model.leds[i].mesh.getTexCoords().size();v++){
-                float inc =float(v) / model.leds[i].mesh.getTexCoords().size();
+                // find % of length we are along the mapping line (0-1)
+                float inc =float(v) / float(model.leds[i].mesh.getTexCoords().size());
+                
                 ofVec2f h1 = model.leds[i].handle1;
                 ofVec2f h2 = model.leds[i].handle2;
-                ofVec2f newCoord = h1.interpolate(h2, inc);
+                
+                // get the 2d coordinate of the point between h1 and h2 at "inc" percent
+                ofVec2f newCoord = h1.getInterpolated(h2, inc);
                 model.leds[i].mesh.setTexCoord(v, newCoord);
-                
-                
-            
             }
         }
+        // uncheck calculate when done, so it does not run this loop constantly
         calculateNewCoords=false;
     }
+    
+    
     cam.lookAt(center);
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -238,50 +165,42 @@ void ofApp::draw(){
    
     ofBackground(background);
     
-  //  ofEnableDepthTest();
     cam.begin();
- //   ofPushMatrix();
- //   ofTranslate(700, 400);
     
+    // draw background and plane
     ofSetColor(background - 10);
     ofPushMatrix();
     ofRotateX(90);
-    //ofSetColor(100,20,20);
     ofDrawPlane(0, 0, 1000, 1000);
     ofPopMatrix();
-    
     ofSetColor(255);
     
+    // draw leds with final texture
     final.getTexture().bind();
     model.drawLeds();
     final.getTexture().unbind();
     
+    // draw profiles
     ofSetColor(10);
     if(showProfile) model.drawProfiles();
     ofSetColor(255,0,0);
-    
- //   ofDrawSphere(center,2.0);
-    
-
     cam.end();
 
+    //for debug, draw texture and led-mapping
     if(debug){
         ofPushMatrix();
         ofTranslate(ofGetWidth()-(fbo->getWidth() ) ,0);
-        //ofScale(0.5, 0.5);
         ofSetColor(255);
         final.draw(0,0,fbo->getWidth(),fbo->getHeight());
-        
         ofSetColor(255, 0, 0,200);
         model.drawHandles();
-        //  for(int i = 0 ; i<texPoints.size();i+=199)ofDrawCircle(texPoints[i], 1);//(leds[i].rect);
         ofPopMatrix();
-        
     }
+    
     ofFill();
-        ofSetColor(255);
-        gui.draw();
-        ofDrawBitmapString("camera position: " +ofToString(cam.getPosition().x)+", "+ofToString(cam.getPosition().y)+", "+ofToString(cam.getPosition().z), 10, 600);
+    ofSetColor(255);
+    gui.draw();
+
         
 }
 
@@ -382,8 +301,6 @@ void ofApp::mouseDragged(int x, int y, int button){
             model.leds[first].handle2.y = yy;
         }
     }
-    
-
 }
 
 //--------------------------------------------------------------

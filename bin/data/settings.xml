@@ -19,6 +19,14 @@
 		<u_xGrid>0.22449</u_xGrid>
 		<u_yGrid>0.239796</u_yGrid>
 		<up>0</up>
+	<ikeda>0</ikeda>
+		<color>126, 126, 255, 255</color>
+		<tempo>1.58163</tempo>
+		<para1>0.673469</para1>
+		<para2>1</para2>
+		<para3>0.80102</para3>
+		<direction>0</direction>
+	<alpha>0</alpha>
 	</ikeda>
 <calculate>0</calculate>
 <maskChevrons>0</maskChevrons>
@@ -28,8 +36,8 @@
 		<blurSize>0.408163</blurSize>
 		<intensity>0.765306</intensity>
 		<saturation>1</saturation>
-		<brightness>0.510204</brightness>
-		<contrast>5</contrast>
+		<brightness>0.102041</brightness>
+		<contrast>1.83673</contrast>
 	</generalAdjus>
 <trail>11</trail>
 	<linespeed>3.57</linespeed>
@@ -37,4 +45,42 @@
 		<line_intensity>0.882653</line_intensity>
 		<linespeed>34.2857</linespeed>
 	</line_parameters>
+<heatmap>
+		<heatmap>1</heatmap>
+		<color>0, 116, 67, 255</color>
+		<tempo>0.765306</tempo>
+	<alpha>0</alpha>
+	</heatmap>
+	<glow>
+		<glow>0</glow>
+		<color>57, 58, 255, 255</color>
+		<tempo>1.73469</tempo>
+		<para1>0.306122</para1>
+		<para2>1</para2>
+		<para3>0.908163</para3>
+		<direction>0</direction>
+	<alpha>0</alpha>
+	</glow>
+	<bubbles>
+		<color>255, 255, 255, 255</color>
+		<tempo>37.7551</tempo>
+		<thickNess>3.82653</thickNess>
+		<intensity>0</intensity>
+		<intensity2>0</intensity2>
+	</bubbles>
+<force>
+		<color>0, 146, 193, 255</color>
+		<tempo>3.57143</tempo>
+		<thickNess>3.21429</thickNess>
+		<intensity>0</intensity>
+	</force>
+<swiper>
+		<color>255, 255, 255, 255</color>
+		<tempo>52.551</tempo>
+		<duration>0.510204</duration>
+		<intensity>0</intensity>
+	</swiper>
+<whale_mov>
+		<alpha>1</alpha>
+	</whale_mov>
 </gui>

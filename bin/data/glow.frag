@@ -10,11 +10,13 @@ uniform vec2 iResolution;
 uniform float iGlobalTime;
 
 
-uniform float u_contrast;
-uniform float u_balance;
-uniform float u_zoom;
-uniform vec3 u_color;
+uniform float para1;
+uniform float para2;
+uniform float para3;
+uniform float alpha;
 
+uniform bool u_bool;
+uniform vec3 u_color;
 
 float noise3D(vec3 p)
 {
@@ -163,11 +165,11 @@ void main( )
         
         vec2 uv = gl_FragCoord.xy / iResolution.xy*1.0-0.5;
         uv.x*=(iResolution.x/iResolution.y);
-        uv*=1.*u_zoom; //u_01
+        uv*=10.*para3; //u_01
         float n = 0.0;
-        n = cloud(vec3(iGlobalTime*0.1, vec2(uv)), u_balance, true, true); //u_balance
+        n = cloud(vec3(iGlobalTime*0.1, vec2(uv)), para2, true, true); //para2
         
-        n = ((n - 0.5) * max(u_contrast, 0.0)) + 0.5; // u_contrast
+        n = ((n - 0.5) * max(para1*10., 0.0)) + 0.5; // para1
         
         float a = 1.0;
         a = n;
@@ -175,7 +177,7 @@ void main( )
         vec2 st = gl_FragCoord.xy/iResolution;
         
         float v = 0.0;
-        finalColor = vec4(vec3(n*u_color), a);
+        finalColor = vec4(vec3(n*u_color), a*alpha);
    // }
     
     gl_FragColor = finalColor;

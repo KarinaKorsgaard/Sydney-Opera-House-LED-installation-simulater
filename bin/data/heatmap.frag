@@ -1,77 +1,15 @@
 //// Gradient stolen from https://www.shadertoy.com/view/ltlSRj
 uniform vec2 iResolution;
 uniform float iGlobalTime;
-//uniform vec2 iMouse;
-//
-//vec3 fromRedToGreen( float interpolant )
-//{
-//    if( interpolant < 0.5 )
-//    {
-//        return vec3(1.0, 2.0 * interpolant, 0.0);
-//    }
-//    else
-//    {
-//        return vec3(2.0 - 2.0 * interpolant, 1.0, 0.0 );
-//    }
-//}
-//
-//
-//vec3 fromGreenToBlue( float interpolant )
-//{
-//   	if( interpolant < 0.5 )
-//    {
-//        return vec3(0.0, 1.0, 2.0 * interpolant);
-//    }
-//    else
-//    {
-//        return vec3(0.0, 2.0 - 2.0 * interpolant, 1.0 );
-//    }
-//}
-//
-//vec3 heat5( float interpolant )
-//{
-//    float invertedInterpolant = interpolant;
-//    if( invertedInterpolant < 0.5 )
-//    {
-//        float remappedFirstHalf = 1.0 - 2.0 * invertedInterpolant;
-//        return fromGreenToBlue( remappedFirstHalf );
-//    }
-//    else
-//    {
-//        float remappedSecondHalf = 2.0 - 2.0 * invertedInterpolant;
-//        return fromRedToGreen( remappedSecondHalf );
-//    }
-//}
-//
-//
-//float d(vec2 a, vec2 b) {
-//    float c = 1.8;
-//    float q = 20. / iResolution.x + 0.5;
-//    float p = 100. / iResolution.y + 0.5;
-//    return p * pow(max(0.0, 1.0 - distance(a, b) / (0.25 + q * 0.25)), 2.);
-//}
-//
-//void main() {
-//    
-//    vec2 uv = gl_FragCoord.xy / iResolution.xy;
-//    uv = uv * 2.0 - vec2(1.0);
-//   // uv.x *= iResolution.x / iResolution.y;
-//    
-//    vec2 p = vec2(1.0);
-//    
-//    float totalWeight = 0.0;
-//    for (float i = 0.0; i < 69.0; ++i) {
-//        
-//        totalWeight += d(uv, vec2(
-//                                  sin(iGlobalTime * 0.1 + float(i)) + sin(i * i),
-//                                  cos(iGlobalTime * 0.2 + float(i * 2.0))
-//                                  ));
-//    }
-//    
-//    
-//    gl_FragColor = vec4(heat5(totalWeight), 1.0);
-//}
 
+uniform float para1;
+uniform float para2;
+uniform float para3;
+
+uniform bool u_bool;
+uniform vec3 u_color;
+
+uniform float alpha;
 
 const int noiseSwirlSteps = 2;
 const float noiseSwirlValue = 1.;
@@ -93,7 +31,7 @@ void main(  )
    // float noise3 = getNoise(vec3(uv * noiseScale, (iGlobalTime+20. )* noiseTimeScale));
    // float noise4 = getNoise(vec3(uv * noiseScale, (iGlobalTime*0.5 )* noiseTimeScale));
     
-    noise  = ((noise  - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
+    //noise  = ((noise  - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
    // noise2 = ((noise2 - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
    // noise3 = ((noise3 - 0.5) * max(3., 0.0)) + 0.5; // u_contrast
     
@@ -103,7 +41,8 @@ void main(  )
   //  noise2 = noise2 * noise2 * noise2 * noise2 *2.0;  //more contrast
   //  noise3 = noise3 * noise3 * noise3 * noise3 *4.0;  //more contrast
     //gl_FragColor = vec4(noise, noise2, noise3, noise4);
-     gl_FragColor = vec4(noise);
+    vec3 c = noise*(u_color);
+     gl_FragColor = vec4(c,alpha);
 }
 
 
@@ -134,17 +73,6 @@ float getNoise(vec3 v) {
     //  normalize
     return fbm5(v) / 2. + 0.5;
 }
-
-//
-// Description : Array and textureless GLSL 2D/3D/4D simplex
-//               noise functions.
-//      Author : Ian McEwan, Ashima Arts.
-//  Maintainer : ijm
-//     Lastmod : 20110822 (ijm)
-//     License : Copyright (C) 2011 Ashima Arts. All rights reserved.
-//               Distributed under the MIT License. See LICENSE file.
-//               https://github.com/ashima/webgl-noise
-//
 
 vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;

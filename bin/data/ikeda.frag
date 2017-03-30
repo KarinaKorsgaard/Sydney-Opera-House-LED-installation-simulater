@@ -9,12 +9,13 @@ precision mediump float;
 uniform vec2 iResolution;
 uniform float iGlobalTime;
 
-uniform float u_amount;
-uniform float u_xGrid;
-uniform float u_yGrid;
+uniform float para1;
+uniform float para2;
+uniform float para3;
+uniform float alpha;
 
-uniform bool up;
-
+uniform bool u_bool;
+uniform vec3 u_color;
 
 float random (in float x) {
     return fract(sin(x)*1e4);
@@ -32,11 +33,11 @@ float pattern(vec2 st, vec2 v, float t) {
 void main() {
     vec2 st;
     
-    if(up)st= gl_FragCoord.yx/iResolution.xy;
+    if(u_bool)st= gl_FragCoord.yx/iResolution.xy;
     else st= gl_FragCoord.xy/iResolution.xy;
     st.x *= iResolution.x/iResolution.y;
 
-    vec2 grid = vec2(u_xGrid*100.,u_yGrid*100.);
+    vec2 grid = vec2(para2*100.,para3*100.);
     //vec2 grid = vec2(100.,200.);
     st *= grid;
     
@@ -50,16 +51,16 @@ void main() {
     vec2 offset = vec2(0.1,0.);
 
     // vec3 color = vec3(0.);
-    // color.r = pattern(st+offset,vel,0.2+1.0-u_amount);
-    // color.g = pattern(st,vel,0.2+1.0-u_amount);
-    // color.b = pattern(st-offset,vel,0.2+1.0-u_amount);
+    // color.r = pattern(st+offset,vel,0.2+1.0-para1);
+    // color.g = pattern(st,vel,0.2+1.0-para1);
+    // color.b = pattern(st-offset,vel,0.2+1.0-para1);
 
-    float n = pattern(st,vel,0.2+1.0-u_amount);
+    float n = pattern(st,vel,0.2+1.0-para1);
 
     // Margins
     // color *= step(0.2,fpos.y);
    
-    vec3 color = vec3(1.);
+    vec3 color = u_color;
 
    float a = 1.0;
    n = 1.0-n;
@@ -68,5 +69,5 @@ void main() {
    color = n * color;
     
 
-    gl_FragColor = vec4(color, a);
+    gl_FragColor = vec4(color, a*alpha);
 }

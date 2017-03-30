@@ -83,7 +83,10 @@ void main( )
     saturationMatrix( saturation ) *
     texture2D(tex,texcoord);
     
-//    color += GetBloom(texcoord) * 0.18;
+    
+    
+    
+  //  color += GetBloom(texcoord) * 0.18;
     
     
 //    uniform float kernel[KERNEL_SIZE];
