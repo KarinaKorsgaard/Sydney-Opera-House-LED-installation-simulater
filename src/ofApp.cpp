@@ -73,14 +73,16 @@ void ofApp::setup(){
     video.setup("whale.mov");
     // add all the parameters to the general gui
     global.add(utzShader);
-    for(int i = 0; i<3;i++){
-        global.add(shaders[i].parameters);
-    }
+    
     global.add(video.parameters);
     global.add(bubbles.parameters);
     global.add(forces.parameters);
     global.add(swiper.parameters);
-
+    
+    for(int i = 0; i<3;i++){
+        global.add(shaders[i].parameters);
+    }
+    
     gui.setup(global);
     gui.loadFromFile("settings.xml");
 

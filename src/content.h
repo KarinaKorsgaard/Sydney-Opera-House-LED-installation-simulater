@@ -19,24 +19,30 @@ public:
         video.setLoopState(OF_LOOP_NORMAL);
         video.play();
         parameters.setName(file);
-        parameters.add(alpha.set("alpha",1,0,1));
+        parameters.add(play.set("play",true));
     }
     void update(){
-        video.update();
+        if(play){
+            video.play();
+            video.update();
+        }
+        else video.stop();
     }
     void draw(bool stretch = true){
         
-        
-        ofPushStyle();
-        ofSetColor(255);
-        if(stretch)video.draw(0,0,TEX_W,TEX_H);
-        else video.draw(0,0);
-        ofPopStyle();
+        if(play){
+            ofPushStyle();
+            ofSetColor(255);
+            if(stretch)video.draw(0,0,TEX_W,TEX_H);
+            else video.draw(0,0);
+            ofPopStyle();
+        }
     }
     ofParameterGroup parameters;
 private:
     ofVideoPlayer video;
     ofParameter<float>alpha;
+    ofParameter<bool>play;
 };
 
 class ShaderContent{

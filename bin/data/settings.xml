@@ -35,7 +35,7 @@
 <generalAdjus>
 		<blurSize>0.408163</blurSize>
 		<intensity>0.765306</intensity>
-		<saturation>1</saturation>
+		<saturation>0.459184</saturation>
 		<brightness>0.102041</brightness>
 		<contrast>1.83673</contrast>
 	</generalAdjus>
@@ -82,5 +82,6 @@
 	</swiper>
 <whale_mov>
 		<alpha>1</alpha>
+	<play>1</play>
 	</whale_mov>
 </gui>
