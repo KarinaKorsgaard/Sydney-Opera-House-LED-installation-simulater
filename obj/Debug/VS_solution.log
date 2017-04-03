@@ -1,0 +1,9 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (obj\Debug\) contains files shared from another project (emptyExample.vcxproj, VS_model_solution.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+  ofApp.cpp
+c:\users\karina\desktop\of_v0.9.8_vs_release\apps\myapps\vividmodel\src\define.h(78): warning C4552: '+': operator has no effect; expected operator with side-effect (compiling source file src\ofApp.cpp)
+c:\users\karina\desktop\of_v0.9.8_vs_release\apps\myapps\vividmodel\src\define.h(78): warning C4552: '+': operator has no effect; expected operator with side-effect (compiling source file src\main.cpp)
+  VS_solution.vcxproj -> C:\Users\Karina\Desktop\of_v0.9.8_vs_release\apps\myApps\vividModel\bin\VS_solution_debug.exe
+  VS_solution.vcxproj -> bin\VS_solution_debug.pdb (Full PDB)
+  
+  	                   9	C:\Users\Karina\Desktop\of_v0.9.8_vs_release\export\vs\Win32\

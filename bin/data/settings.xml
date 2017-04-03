@@ -49,7 +49,7 @@
 		<heatmap>1</heatmap>
 		<color>255, 77, 75, 255</color>
 		<tempo>2.44898</tempo>
-	<alpha>1</alpha>
+	<alpha>0</alpha>
 	</heatmap>
 	<glow>
 		<glow>0</glow>
@@ -59,7 +59,7 @@
 		<para2>1</para2>
 		<para3>0.908163</para3>
 		<direction>0</direction>
-	<alpha>1</alpha>
+	<alpha>0</alpha>
 	</glow>
 	<bubbles>
 		<color>255, 255, 255, 255</color>
@@ -72,7 +72,7 @@
 		<color>255, 146, 193, 255</color>
 		<tempo>9.18367</tempo>
 		<thickNess>4.28571</thickNess>
-		<intensity>0.244898</intensity>
+		<intensity>0</intensity>
 	</force>
 <swiper>
 		<color>255, 255, 255, 255</color>
@@ -85,6 +85,6 @@
 	<play>1</play>
 	</whale_mov>
 <videos>
-		<play>1</play>
+		<play>0</play>
 	</videos>
 </gui>

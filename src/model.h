@@ -13,6 +13,7 @@
 #include "define.h"
 
 
+
 class Model{
 public:
     ofxXmlSettings xml;
@@ -142,14 +143,12 @@ public:
     }
     
     void addArch(float angle, float xCoord, ofVec3f rot, ofVec3f trans, float diameter = 14.20, bool addleds = true, float beginAngle = 0.){
-        float texCoordSpacing = .5;
+        
         float hollow_low = 0.1;
         float hollow_high = 3.;
        // float ledDist = 0.05;
         //float dist = 20; // mapping dist
-        float pitch = 60; // pr meter
-        float amountPixels = (diameter/10.)*PI * pitch;
-        double inc = 360.f / amountPixels; // 180 angels. 14*PI/2 meter. pitch
+
         float h_y = 0.0; // hollows elevation from org
         float width = 2.; // struct width
         
@@ -240,7 +239,7 @@ public:
             for(int m = chevronStartAt ; m< m1.getVertices().size() ;m+= chevronSpacing){
                 
                 
-                if(m<m2.getVertices().size()){
+                if(m+15 < m2.getVertices().size() && m + 15<m1.getVertices().size()){
                     
                     ofMesh c;
                     c.setMode(OF_PRIMITIVE_POINTS);
@@ -304,6 +303,7 @@ public:
                     profile.addVertex(c1);
                     
                     //
+
                     v1 = m2.getVertices()[m-profileW];
                     v2 = m2.getVertices()[m+profileW];
                     

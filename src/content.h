@@ -205,7 +205,7 @@ class Forces{
 public:
     void setup(string file, vector<ofVec2f>_chevs){
         chevs = _chevs;
-        chevDist = abs(chevs[0].y - chevs[1].y);
+//        chevDist = abs(chevs[0].y - chevs[1].y);
         parameters.setName(file);
         
         parameters.add(intensity.set("intensity",1,0,1));

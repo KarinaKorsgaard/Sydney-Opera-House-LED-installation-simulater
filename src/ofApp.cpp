@@ -143,13 +143,13 @@ void ofApp::update(){
         for(int i = 0 ; i<model.leds.size();i++){
             for(int v = 0; v<model.leds[i].mesh.getTexCoords().size();v++){
                 // find % of length we are along the mapping line (0-1)
-                float inc =float(v) / float(model.leds[i].mesh.getTexCoords().size());
+                float INC =float(v) / float(model.leds[i].mesh.getTexCoords().size());
                 
                 ofVec2f h1 = model.leds[i].handle1;
                 ofVec2f h2 = model.leds[i].handle2;
                 
                 // get the 2d coordinate of the point between h1 and h2 at "inc" percent
-                ofVec2f newCoord = h1.getInterpolated(h2, inc);
+                ofVec2f newCoord = h1.getInterpolated(h2, INC);
                 model.leds[i].mesh.setTexCoord(v, newCoord);
             }
         }
