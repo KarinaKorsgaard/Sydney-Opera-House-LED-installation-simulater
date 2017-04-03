@@ -87,7 +87,7 @@ void ofApp::setup(){
     gui.loadFromFile("settings.xml");
 
     // set point size for led mesh in visualisation
-    glPointSize(2.);
+    glPointSize(.1);
     ofEnableAlphaBlending();
     
     

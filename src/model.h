@@ -142,12 +142,14 @@ public:
     }
     
     void addArch(float angle, float xCoord, ofVec3f rot, ofVec3f trans, float diameter = 14.20, bool addleds = true, float beginAngle = 0.){
-        float texCoordSpacing = 2.;
+        float texCoordSpacing = .5;
         float hollow_low = 0.1;
         float hollow_high = 3.;
        // float ledDist = 0.05;
         //float dist = 20; // mapping dist
-        double inc = 360.f/((diameter*PI)/1.); // diameter is in metres * scale// scale
+        float pitch = 60; // pr meter
+        float amountPixels = (diameter/10.)*PI * pitch;
+        double inc = 360.f / amountPixels; // 180 angels. 14*PI/2 meter. pitch
         float h_y = 0.0; // hollows elevation from org
         float width = 2.; // struct width
         
@@ -224,101 +226,101 @@ public:
         int spacing = 5*4;
         float width = 1.;
         
-        double angleSpacing = 360.f/((142.0*PI)/1.); // diameter is in metres * scale// scale
+        // double angleSpacing = 360.f/((142.0*PI)/1.); // diameter is in metres * scale// scale
         int ledSpacing = 1.; // 0.1 m * scale
-        int chevronSpacing = ledSpacing * 12;
-        int chevronStartAt = 20;
+        int chevronSpacing = 80;
+        int chevronStartAt = 100;
         
         //vector<ofMesh>chevrons;
         for(int i = 0 ; i< meshes.size()-1;i++){
             ofMesh m1 = meshes[i];
             ofMesh m2 = meshes[i+1];
             
-          //  if(m1.getNumVertices()<1700 || m2.getNumVertices()<1700){
-                for(int m = chevronStartAt ; m< m1.getVertices().size() ;m+= chevronSpacing){
+            //  if(m1.getNumVertices()<1700 || m2.getNumVertices()<1700){
+            for(int m = chevronStartAt ; m< m1.getVertices().size() ;m+= chevronSpacing){
+                
+                
+                if(m<m2.getVertices().size()){
                     
+                    ofMesh c;
+                    c.setMode(OF_PRIMITIVE_POINTS);
                     
-                    if(m<m2.getVertices().size()){
+                    ofMesh profile;
+                    profile.setMode(OF_PRIMITIVE_TRIANGLES);
+                    
+                    float interpol = 0.f;
+                    
+                    LED led;
+                    led.handle1 = m1.getTexCoord(m);
+                    led.handle2 = m2.getTexCoord(m);
+                    float dist = ofDist(led.handle1.x,led.handle1.y,led.handle2.x,led.handle2.y);
+                    dist = 1./dist * 3.;
+                    chevCoord.push_back(m1.getTexCoord(m).getInterpolated(m2.getTexCoord(m),0.5));
+                    int indx = 0;
+                    while(interpol<2){
+                        ofVec3f v1 = m1.getVertices()[m];
+                        ofVec3f v3 ;
+                        ofVec3f c1 = m1.getVertices()[m-15];
+                        ofVec3f c2 = m2.getVertices()[m-15];
                         
-                        ofMesh c;
-                        c.setMode(OF_PRIMITIVE_POINTS);
+                        v3 = c1.interpolate(c2,0.5);
                         
-                        ofMesh profile;
-                        profile.setMode(OF_PRIMITIVE_TRIANGLES);
-                        
-                        float interpol = 0.f;
-                        
-                        LED led;
-                        led.handle1 = m1.getTexCoord(m);
-                        led.handle2 = m2.getTexCoord(m);
-                        float dist = ofDist(led.handle1.x,led.handle1.y,led.handle2.x,led.handle2.y);
-                        dist = 1./dist * 3.;
-                        chevCoord.push_back(m1.getTexCoord(m).getInterpolated(m2.getTexCoord(m),0.5));
-                        int indx = 0;
-                        while(interpol<2){
-                            ofVec3f v1 = m1.getVertices()[m];
-                            ofVec3f v3 ;
-                            ofVec3f c1 = m1.getVertices()[m-4];
-                            ofVec3f c2 = m2.getVertices()[m-4];
-                            
-                            v3 = c1.interpolate(c2,0.5);
-                            
-                            float interpolHalfed = interpol;
-                            if(interpol > 1){
-                                interpolHalfed-=1;
-                                v1 = c1;
-                                v3 = m2.getVertices()[m];
-                            }
-                            v1.interpolate(v3,interpolHalfed);
-                            
-                            c.addVertex(v1);
-                            
-                            ofVec2f t1 = m1.getTexCoord(m);
-                            ofVec2f t2 = m2.getTexCoord(m);
-                            c.addTexCoord(t1.interpolate(t2,interpol/2.));
-                            interpol+=dist;
-                            indx++;
+                        float interpolHalfed = interpol;
+                        if(interpol > 1){
+                            interpolHalfed-=1;
+                            v1 = c1;
+                            v3 = m2.getVertices()[m];
                         }
-                        led.numLEDS = indx;
+                        v1.interpolate(v3,interpolHalfed);
                         
+                        c.addVertex(v1);
                         
-                        // profiles:
-                        int profileW = 1;
-                        ofVec3f v1 = m1.getVertices()[m-profileW];
-                        ofVec3f v2 = m1.getVertices()[m+profileW];
-    
-                        
-                        profile.addVertex(v1);
-                        profile.addVertex(v2);
-                        profile.addVertex(v2);
-                        profile.addVertex(v1);
-  
-                        ofVec3f c1 = m1.getVertices()[m-4-profileW].getInterpolated(m2.getVertices()[m-4-profileW],0.5);
-                        ofVec3f c2 = m1.getVertices()[m-4+profileW].getInterpolated(m2.getVertices()[m-4+profileW],0.5);
-                        
-                        profile.addVertex(c1);
-                        profile.addVertex(c2);
-                        profile.addVertex(c2);
-                        profile.addVertex(c1);
-                        
-//
-                         v1 = m2.getVertices()[m-profileW];
-                         v2 = m2.getVertices()[m+profileW];
-
-                        profile.addVertex(v1);
-                        profile.addVertex(v2);
-                        profile.addVertex(v2);
-                        profile.addVertex(v1);
-
-                        shc.push_back(profile);
-                        
-                      //  chevrons.push_back(c);
-                        led.mesh = c;
-                        leds.push_back(led);
+                        ofVec2f t1 = m1.getTexCoord(m);
+                        ofVec2f t2 = m2.getTexCoord(m);
+                        c.addTexCoord(t1.interpolate(t2,interpol/2.));
+                        interpol+=dist;
+                        indx++;
+                    }
+                    led.numLEDS = indx;
+                    
+                    
+                    // profiles:
+                    int profileW = 6;
+                    ofVec3f v1 = m1.getVertices()[m-profileW];
+                    ofVec3f v2 = m1.getVertices()[m+profileW];
+                    
+                    
+                    profile.addVertex(v1);
+                    profile.addVertex(v2);
+                    profile.addVertex(v2);
+                    profile.addVertex(v1);
+                    
+                    ofVec3f c1 = m1.getVertices()[m-15-profileW].getInterpolated(m2.getVertices()[m-15-profileW],0.5);
+                    ofVec3f c2 = m1.getVertices()[m-15+profileW].getInterpolated(m2.getVertices()[m-15+profileW],0.5);
+                    
+                    profile.addVertex(c1);
+                    profile.addVertex(c2);
+                    profile.addVertex(c2);
+                    profile.addVertex(c1);
+                    
+                    //
+                    v1 = m2.getVertices()[m-profileW];
+                    v2 = m2.getVertices()[m+profileW];
+                    
+                    profile.addVertex(v1);
+                    profile.addVertex(v2);
+                    profile.addVertex(v2);
+                    profile.addVertex(v1);
+                    
+                    shc.push_back(profile);
+                    
+                    //  chevrons.push_back(c);
+                    led.mesh = c;
+                    leds.push_back(led);
                 }
             }
         }
-       // return chevrons;
+        // return chevrons;
     }
     
     void saveMapping(){
