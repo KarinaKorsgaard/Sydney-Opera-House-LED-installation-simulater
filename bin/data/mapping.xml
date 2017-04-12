@@ -1,314 +1,104 @@
 <mapping>
     <lednr0>
-        <first_x>40.000000000</first_x>
+        <first_x>10.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>40.000000000</second_x>
-        <second_y>448.000000000</second_y>
+        <second_x>10.000000000</second_x>
+        <second_y>222.000000000</second_y>
     </lednr0>
     <lednr1>
-        <first_x>80.000000000</first_x>
+        <first_x>152.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>80.000000000</second_x>
-        <second_y>84.000000000</second_y>
+        <second_x>152.000000000</second_x>
+        <second_y>558.000000000</second_y>
     </lednr1>
     <lednr2>
-        <first_x>120.000000000</first_x>
+        <first_x>294.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>120.000000000</second_x>
-        <second_y>102.000000000</second_y>
+        <second_x>294.000000000</second_x>
+        <second_y>477.000000000</second_y>
     </lednr2>
     <lednr3>
-        <first_x>160.000000000</first_x>
+        <first_x>436.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>160.000000000</second_x>
-        <second_y>118.000000000</second_y>
+        <second_x>436.000000000</second_x>
+        <second_y>426.000000000</second_y>
     </lednr3>
     <lednr4>
-        <first_x>200.000000000</first_x>
+        <first_x>578.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>200.000000000</second_x>
-        <second_y>448.000000000</second_y>
+        <second_x>578.000000000</second_x>
+        <second_y>363.000000000</second_y>
     </lednr4>
     <lednr5>
-        <first_x>240.000000000</first_x>
+        <first_x>720.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>240.000000000</second_x>
-        <second_y>124.000000000</second_y>
+        <second_x>720.000000000</second_x>
+        <second_y>345.000000000</second_y>
     </lednr5>
     <lednr6>
-        <first_x>280.000000000</first_x>
+        <first_x>862.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>280.000000000</second_x>
-        <second_y>448.000000000</second_y>
+        <second_x>862.000000000</second_x>
+        <second_y>681.000000000</second_y>
     </lednr6>
     <lednr7>
-        <first_x>320.000000000</first_x>
+        <first_x>1004.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>320.000000000</second_x>
-        <second_y>88.000000000</second_y>
+        <second_x>1004.000000000</second_x>
+        <second_y>1263.000000000</second_y>
     </lednr7>
     <lednr8>
-        <first_x>360.000000000</first_x>
+        <first_x>1146.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>360.000000000</second_x>
-        <second_y>88.000000000</second_y>
+        <second_x>1146.000000000</second_x>
+        <second_y>345.000000000</second_y>
     </lednr8>
     <lednr9>
-        <first_x>440.000000000</first_x>
+        <first_x>1288.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>440.000000000</second_x>
-        <second_y>378.000000000</second_y>
+        <second_x>1288.000000000</second_x>
+        <second_y>345.000000000</second_y>
     </lednr9>
     <lednr10>
-        <first_x>480.000000000</first_x>
+        <first_x>1430.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>480.000000000</second_x>
-        <second_y>134.000000000</second_y>
+        <second_x>1430.000000000</second_x>
+        <second_y>1608.000000000</second_y>
     </lednr10>
     <lednr11>
-        <first_x>520.000000000</first_x>
+        <first_x>1572.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>520.000000000</second_x>
-        <second_y>118.000000000</second_y>
+        <second_x>1572.000000000</second_x>
+        <second_y>435.000000000</second_y>
     </lednr11>
     <lednr12>
-        <first_x>560.000000000</first_x>
+        <first_x>1714.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>560.000000000</second_x>
-        <second_y>102.000000000</second_y>
+        <second_x>1714.000000000</second_x>
+        <second_y>1608.000000000</second_y>
     </lednr12>
     <lednr13>
-        <first_x>600.000000000</first_x>
+        <first_x>1856.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>600.000000000</second_x>
-        <second_y>84.000000000</second_y>
+        <second_x>1856.000000000</second_x>
+        <second_y>495.000000000</second_y>
     </lednr13>
     <lednr14>
-        <first_x>640.000000000</first_x>
+        <first_x>1998.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>640.000000000</second_x>
-        <second_y>68.000000000</second_y>
+        <second_x>1998.000000000</second_x>
+        <second_y>435.000000000</second_y>
     </lednr14>
     <lednr15>
-        <first_x>40.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>80.000000000</second_x>
-        <second_y>40.000000000</second_y>
+        <first_x>2140.000000000</first_x>
+        <first_y>0.000000000</first_y>
+        <second_x>2140.000000000</second_x>
+        <second_y>381.000000000</second_y>
     </lednr15>
     <lednr16>
-        <first_x>40.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>80.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr16>
-    <lednr17>
-        <first_x>80.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>120.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr17>
-    <lednr18>
-        <first_x>80.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>120.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr18>
-    <lednr19>
-        <first_x>120.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>160.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr19>
-    <lednr20>
-        <first_x>120.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>160.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr20>
-    <lednr21>
-        <first_x>120.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>160.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr21>
-    <lednr22>
-        <first_x>160.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>200.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr22>
-    <lednr23>
-        <first_x>160.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>200.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr23>
-    <lednr24>
-        <first_x>160.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>200.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr24>
-    <lednr25>
-        <first_x>160.000000000</first_x>
-        <first_y>112.000000000</first_y>
-        <second_x>200.000000000</second_x>
-        <second_y>112.000000000</second_y>
-    </lednr25>
-    <lednr26>
-        <first_x>200.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>240.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr26>
-    <lednr27>
-        <first_x>200.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>240.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr27>
-    <lednr28>
-        <first_x>200.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>240.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr28>
-    <lednr29>
-        <first_x>200.000000000</first_x>
-        <first_y>112.000000000</first_y>
-        <second_x>240.000000000</second_x>
-        <second_y>112.000000000</second_y>
-    </lednr29>
-    <lednr30>
-        <first_x>240.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>280.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr30>
-    <lednr31>
-        <first_x>240.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>280.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr31>
-    <lednr32>
-        <first_x>240.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>280.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr32>
-    <lednr33>
-        <first_x>240.000000000</first_x>
-        <first_y>112.000000000</first_y>
-        <second_x>280.000000000</second_x>
-        <second_y>112.000000000</second_y>
-    </lednr33>
-    <lednr34>
-        <first_x>280.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>320.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr34>
-    <lednr35>
-        <first_x>280.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>320.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr35>
-    <lednr36>
-        <first_x>320.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>360.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr36>
-    <lednr37>
-        <first_x>320.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>360.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr37>
-    <lednr38>
-        <first_x>360.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>400.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr38>
-    <lednr39>
-        <first_x>360.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>400.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr39>
-    <lednr40>
-        <first_x>480.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>520.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr40>
-    <lednr41>
-        <first_x>480.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>520.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr41>
-    <lednr42>
-        <first_x>480.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>520.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr42>
-    <lednr43>
-        <first_x>480.000000000</first_x>
-        <first_y>112.000000000</first_y>
-        <second_x>520.000000000</second_x>
-        <second_y>112.000000000</second_y>
-    </lednr43>
-    <lednr44>
-        <first_x>520.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>560.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr44>
-    <lednr45>
-        <first_x>520.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>560.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr45>
-    <lednr46>
-        <first_x>520.000000000</first_x>
-        <first_y>88.000000000</first_y>
-        <second_x>560.000000000</second_x>
-        <second_y>88.000000000</second_y>
-    </lednr46>
-    <lednr47>
-        <first_x>560.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>600.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr47>
-    <lednr48>
-        <first_x>560.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>600.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr48>
-    <lednr49>
-        <first_x>600.000000000</first_x>
-        <first_y>40.000000000</first_y>
-        <second_x>640.000000000</second_x>
-        <second_y>40.000000000</second_y>
-    </lednr49>
-    <lednr50>
-        <first_x>600.000000000</first_x>
-        <first_y>64.000000000</first_y>
-        <second_x>640.000000000</second_x>
-        <second_y>64.000000000</second_y>
-    </lednr50>
-    <lednr51>
-        <first_x>680.000000000</first_x>
+        <first_x>2282.000000000</first_x>
         <first_y>0.000000000</first_y>
-        <second_x>680.000000000</second_x>
-        <second_y>180.000000000</second_y>
-    </lednr51>
+        <second_x>2282.000000000</second_x>
+        <second_y>1608.000000000</second_y>
+    </lednr16>
 </mapping>

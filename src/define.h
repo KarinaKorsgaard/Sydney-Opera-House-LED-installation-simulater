@@ -8,16 +8,10 @@
 
 #ifndef define_h
 #define define_h
+#define arcSpacing 102
 
-
-
-#define pitch 60.f // pr meter
-#define amountPixels 2675// (14.2 )*PI * pitch
-#define inc 0.1345 //360.f / amountPixels // 180 angels. 14*PI/2 meter. pitch
-#define texCoordSpacing .5
-
-#define TEX_W 20*2*20+20
-#define TEX_H 692.3//(180.f/inc)*.5
+#define TEX_W 1764
+#define TEX_H 1607//(180.f/inc)*.5
 
 
 struct LED{

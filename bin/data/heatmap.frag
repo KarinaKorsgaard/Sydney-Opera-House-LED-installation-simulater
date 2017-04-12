@@ -11,6 +11,8 @@ uniform vec3 u_color;
 
 uniform float alpha;
 
+uniform sampler2D mask;
+
 const int noiseSwirlSteps = 2;
 const float noiseSwirlValue = 1.;
 const float noiseSwirlStepValue = noiseSwirlValue / float(noiseSwirlSteps);
@@ -26,23 +28,29 @@ float getNoise(vec3 v);
 void main(  )
 {
     vec2 uv = gl_FragCoord.xy / iResolution.xy;
-    float noise  = getNoise(vec3(uv * noiseScale, iGlobalTime * noiseTimeScale));
-   // float noise2 = getNoise(vec3(uv * noiseScale, (iGlobalTime+10. )* noiseTimeScale));
-   // float noise3 = getNoise(vec3(uv * noiseScale, (iGlobalTime+20. )* noiseTimeScale));
-   // float noise4 = getNoise(vec3(uv * noiseScale, (iGlobalTime*0.5 )* noiseTimeScale));
     
-    //noise  = ((noise  - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
-   // noise2 = ((noise2 - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
-   // noise3 = ((noise3 - 0.5) * max(3., 0.0)) + 0.5; // u_contrast
-    
-   // noise4 = ((noise4 - 0.5) * max(10., 0.0)) + 0.5; // u_contrast
-    
-  //  noise = noise * noise * noise * noise * 5.0;  //more contrast
-  //  noise2 = noise2 * noise2 * noise2 * noise2 *2.0;  //more contrast
-  //  noise3 = noise3 * noise3 * noise3 * noise3 *4.0;  //more contrast
-    //gl_FragColor = vec4(noise, noise2, noise3, noise4);
-    vec3 c = noise*(u_color);
-     gl_FragColor = vec4(c,alpha);
+    vec4 alphaMask = texture2D(mask,uv);
+    if(alphaMask.w>0.5){
+        
+        float noise  = getNoise(vec3(uv * noiseScale, iGlobalTime * noiseTimeScale));
+        // float noise2 = getNoise(vec3(uv * noiseScale, (iGlobalTime+10. )* noiseTimeScale));
+        // float noise3 = getNoise(vec3(uv * noiseScale, (iGlobalTime+20. )* noiseTimeScale));
+        // float noise4 = getNoise(vec3(uv * noiseScale, (iGlobalTime*0.5 )* noiseTimeScale));
+        
+        //noise  = ((noise  - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
+        // noise2 = ((noise2 - 0.5) * max(2., 0.0)) + 0.5; // u_contrast
+        // noise3 = ((noise3 - 0.5) * max(3., 0.0)) + 0.5; // u_contrast
+        
+        // noise4 = ((noise4 - 0.5) * max(10., 0.0)) + 0.5; // u_contrast
+        
+        //  noise = noise * noise * noise * noise * 5.0;  //more contrast
+        //  noise2 = noise2 * noise2 * noise2 * noise2 *2.0;  //more contrast
+        //  noise3 = noise3 * noise3 * noise3 * noise3 *4.0;  //more contrast
+        //gl_FragColor = vec4(noise, noise2, noise3, noise4);
+        vec3 c = noise*(u_color);
+        gl_FragColor = vec4(c,alpha);
+    }else
+        gl_FragColor = vec4(0.);
 }
 
 

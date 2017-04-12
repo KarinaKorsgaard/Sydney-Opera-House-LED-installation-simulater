@@ -6,7 +6,7 @@
 #include "model.h"
 #include "ofxGrabCam.h"
 #include "content.h"
-
+#include "ofxAssimpModelLoader.h"
 #include "define.h"
 
 class ofApp : public ofBaseApp{
@@ -39,7 +39,7 @@ class ofApp : public ofBaseApp{
     int first = -1;
     int second;
     ofParameter<int>background,trail;
-    
+    ofxAssimpModelLoader assimpModel;
     ofParameter<bool>maskChevrons;
     ofParameter<bool>maskArches;
     ofxGrabCam cam;
@@ -48,7 +48,9 @@ class ofApp : public ofBaseApp{
 //    
 //    ofxAutoReloadedShader shader;
     ofxAutoReloadedShader wind,ikeda,utz;
-    
+    void recordMask();
+    ofImage testImg;
+    bool test;
 //
 //    
 //    ofParameter<float>blurSize;

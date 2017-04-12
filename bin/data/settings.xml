@@ -20,24 +20,24 @@
 		<u_yGrid>0.239796</u_yGrid>
 		<up>0</up>
 	<ikeda>0</ikeda>
-		<color>126, 126, 255, 255</color>
-		<tempo>1.58163</tempo>
-		<para1>0.673469</para1>
-		<para2>1</para2>
-		<para3>0.80102</para3>
+		<color>176, 110, 62, 255</color>
+		<tempo>1.78571</tempo>
+		<para1>0.234694</para1>
+		<para2>0.239796</para2>
+		<para3>0.244898</para3>
 		<direction>0</direction>
-	<alpha>0</alpha>
+	<alpha>1</alpha>
 	</ikeda>
 <calculate>0</calculate>
 <maskChevrons>0</maskChevrons>
 	<maskArches>0</maskArches>
-	<background>66</background>
+	<background>44</background>
 <generalAdjus>
 		<blurSize>0.408163</blurSize>
 		<intensity>0.765306</intensity>
-		<saturation>0.459184</saturation>
-		<brightness>0.102041</brightness>
-		<contrast>2.5</contrast>
+		<saturation>0.331633</saturation>
+		<brightness>0.280612</brightness>
+		<contrast>2.39796</contrast>
 	</generalAdjus>
 <trail>11</trail>
 	<linespeed>3.57</linespeed>
@@ -48,25 +48,25 @@
 <heatmap>
 		<heatmap>1</heatmap>
 		<color>255, 77, 75, 255</color>
-		<tempo>2.44898</tempo>
+		<tempo>0.867347</tempo>
 	<alpha>0</alpha>
 	</heatmap>
 	<glow>
 		<glow>0</glow>
-		<color>57, 58, 255, 255</color>
-		<tempo>1.73469</tempo>
-		<para1>0.306122</para1>
-		<para2>1</para2>
-		<para3>0.908163</para3>
+		<color>178, 63, 171, 255</color>
+		<tempo>1.93878</tempo>
+		<para1>1</para1>
+		<para2>0.75</para2>
+		<para3>0.438776</para3>
 		<direction>0</direction>
-	<alpha>0</alpha>
+	<alpha>1</alpha>
 	</glow>
 	<bubbles>
-		<color>255, 255, 255, 255</color>
-		<tempo>37.7551</tempo>
-		<thickNess>3.82653</thickNess>
-		<intensity>0</intensity>
-		<intensity2>0</intensity2>
+		<color>47, 136, 255, 255</color>
+		<tempo>39.7959</tempo>
+		<thickNess>10</thickNess>
+		<intensity>0.188776</intensity>
+		<intensity2>0.188776</intensity2>
 	</bubbles>
 <force>
 		<color>255, 146, 193, 255</color>

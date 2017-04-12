@@ -41,8 +41,6 @@ public:
         }
     }
     void loadNew(string file){
-      //  video.unload();
-        
         video.load(file);
         video.setVolume(0);
         video.play();
@@ -53,6 +51,7 @@ private:
     ofParameter<float>alpha;
     ofParameter<bool>play;
 };
+
 
 class ShaderContent{
 public:
@@ -67,6 +66,10 @@ public:
         if(numParameters>5)parameters.add(para3.set("para3",1,0,1));
         if(numParameters>6)parameters.add(bool1.set("direction",false));
         parameters.add(color.set("color", ofColor(255),ofColor(0),ofColor(255)));
+        
+        ofDisableArbTex();
+        ofLoadImage(texMask,"texMask.png");
+        ofEnableArbTex();
     }
     void update(){
         if(interpolatedAlpha!=alpha){
@@ -80,15 +83,16 @@ public:
         time+=ofGetLastFrameTime()*tempo;
         if(interpolatedAlpha>0){
             shader.begin();
-            shader.setUniform2f("iResolution", ofVec2f(TEX_W,TEX_H));
+            shader.setUniform2f("iResolution", ofVec2f(2444,1607));
             shader.setUniform1f("iGlobalTime", time);
+            shader.setUniformTexture("mask", texMask, 1);
             shader.setUniform1i("u_bool", bool1);
             shader.setUniform1f("para1", para1);
             shader.setUniform1f("para2", para2);
             shader.setUniform1f("para3", para3);
             shader.setUniform1f("alpha", interpolatedAlpha);
             shader.setUniform3f("u_color", ofVec3f(color->r/255.0f,color->g/255.0f,color->b/255.0f));
-            ofDrawRectangle(0, 0, TEX_W, TEX_H);
+            ofDrawRectangle(0, 0, 2444, 1607);
             shader.end();
         }
     }
@@ -102,6 +106,7 @@ public:
     }
     
     ofParameterGroup parameters;
+    ofTexture texMask;
     
 private:
     ofxAutoReloadedShader shader;
@@ -118,6 +123,7 @@ private:
     
 };
 
+
 struct Line{
     ofVec2f pos;
     ofVec2f vel;
@@ -130,17 +136,15 @@ public:
         parameters.setName(file);
         parameters.add(intensity.set("intensity",1,0,1));
         parameters.add(intensity2.set("intensity2",1,0,1));
-        
         parameters.add(tempo.set("tempo",1,0,100));
         parameters.add(thickNess.set("thickNess",1,0,10));
-    
         parameters.add(color.set("color", ofColor(255),ofColor(0),ofColor(255)));
     }
     
     void update(){
         for(int i = 0;i<theLines.size();i++){
             theLines[i].pos.y+=theLines[i].vel.y * ofGetLastFrameTime();
-            theLines[i].thickness-=ofGetLastFrameTime();
+          //  theLines[i].thickness-=ofGetLastFrameTime();
         }
         
         int indx = 0;
@@ -156,15 +160,15 @@ public:
     
         if(ofRandom(1)<intensity){
             Line l = *new Line;
-            l.pos.set( int(ofRandom(18))*40 + 40 , 0);
-            l.vel = ofVec2f(0,tempo);
+            l.pos.set( int(ofRandom(18))*arcSpacing + 10 , 0);
+            l.vel = ofVec2f(1,tempo*10.);
             l.thickness = ofRandom(thickNess,thickNess*0.7);
             theLines.push_back(l);
         }
         if(ofRandom(1)<intensity2){
             Line l = *new Line;
-            l.pos.set( int(ofRandom(18))*40 + 40 , TEX_H );
-            l.vel = ofVec2f(0,-tempo);
+            l.pos.set( int(ofRandom(18))*arcSpacing + 10 , TEX_H );
+            l.vel = ofVec2f(-1,-tempo*10.);
             l.thickness = ofRandom(thickNess,thickNess*0.7);
             theLines.push_back(l);
         }
@@ -203,7 +207,7 @@ struct Pulse{
 
 class Forces{
 public:
-    void setup(string file, vector<ofVec2f>_chevs){
+    void setup(string file, vector<ofVec2f>*_chevs){
         chevs = _chevs;
 //        chevDist = abs(chevs[0].y - chevs[1].y);
         parameters.setName(file);
@@ -223,7 +227,7 @@ public:
         
         int indx = 0;
         for (vector<Pulse>::iterator it=pulses.begin(); it!=pulses.end();)    {
-            if(it->dist>35)
+            if(it->dist>arcSpacing/2.)
                 it = pulses.erase(it);
             else
                 ++it;
@@ -231,8 +235,8 @@ public:
         
         if(ofRandom(2)<intensity){
             Pulse p = *new Pulse;
-            int chev = ofRandom(chevs.size());
-            p.pos = chevs[chev];
+            int chev = ofRandom(chevs->size());
+            p.pos = chevs->at(chev);
             int x = ofRandom(1)>0.5? 1:-1;
             p.vel = ofVec2f(x,0);
             p.tempo = tempo;
@@ -243,7 +247,7 @@ public:
       
         for(int i = 0; i<pulses.size();i++){
             Pulse * p = &pulses[i];
-            if(p->dist>20 && abs(p->vel.x)>0 ){
+            if(p->dist>arcSpacing/2. && abs(p->vel.x)>0 ){
                 p->vel.y = ofRandom(1)>0.5? 1:-1;
                 p->vel.x = 0;
             }
@@ -257,7 +261,7 @@ public:
         ofSetColor(color);
         for(int i = 0; i<pulses.size();i++){
             Pulse p = pulses[i];
-            float alpha = ofMap(p.dist, 0, 35, thickNess, 0);
+            float alpha = ofMap(p.dist, 0, arcSpacing/2., thickNess, 0);
             ofSetLineWidth(alpha);
             ofDrawCircle(p.pos,p.dist);
 
@@ -265,7 +269,7 @@ public:
             
         ofPopStyle();
     }
-    
+    vector<ofVec2f>*chevs;
     ofParameterGroup parameters;
     
 private:
@@ -275,7 +279,7 @@ private:
     float chevDist;
     ofParameter<ofColor> color;
     vector<Pulse>pulses;
-    vector<ofVec2f>chevs;
+    
 };
 
 struct Swip{

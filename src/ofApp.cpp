@@ -5,7 +5,7 @@ void ofApp::setup(){
 
 // load shader to adjust contrast brightness and saturation
     utz.load("utz");
-    
+    testImg.load("testImg.png");
     
     // setup camera
     cam.setCursorDrawEnabled(true);
@@ -22,38 +22,20 @@ void ofApp::setup(){
     // allocate framebuffers with arbTex disabled
     ofDisableArbTex();
     fbo= shared_ptr<ofFbo>(new ofFbo);
-    fbo->allocate(TEX_W, TEX_H);
-    chevronMask.allocate(TEX_W, TEX_H);
-    archMask.allocate(TEX_W, TEX_H);
+    fbo->allocate(model.width, TEX_H);
     ofEnableArbTex();
     
     // final framebuffer
-    final.allocate(TEX_W, TEX_H);
+    final.allocate(model.width, TEX_H);
   
-    // draw a mask in the chevron framebuffer
-    chevronMask.begin();
-    ofClear(0);
-    for(int i = 0; i < 20;i++){
-        ofSetColor(0);
-        ofDrawRectangle(40 + 40*i + 1, 0, 38, TEX_H);
-    }
-    chevronMask.end();
-    
-    // draw a mask in the arch framebuffer
-    archMask.begin();
-    ofClear(0);
-    for(int i = 0; i < 20;i++){
-        ofSetColor(0);
-        ofDrawRectangle(40 + 40*i -1 , 0, 2 , TEX_H);
-    }
-    archMask.end();
+
     
     
     // setup general gui
     global.setName("gui");
     global.add(calculateNewCoords.set("calculate",false));
-    global.add(maskChevrons.set("maskChevrons",false));
-    global.add(maskArches.set("maskArches",false));
+  //  global.add(maskChevrons.set("maskChevrons",false));
+  //  global.add(maskArches.set("maskArches",false));
     global.add(background.set("background",10,10,255));
     
     utzShader.setName("generalAdjus");
@@ -63,13 +45,13 @@ void ofApp::setup(){
 
     // setup various instances of shader class
     shaders[0].setup("heatmap",0);
-    shaders[1].setup("glow");
-    shaders[2].setup("ikeda");
+  //  shaders[1].setup("glow");
+    shaders[1].setup("ikeda");
     
     // setup bubbles
     bubbles.setup("bubbles");
-    forces.setup("force",model.chevCoord);
-    swiper.setup("swiper",&ledControl);
+    forces.setup("force",&model.chevCoord);
+   // swiper.setup("swiper",&ledControl);
     video.setup("video0.mov");
     // add all the parameters to the general gui
     global.add(utzShader);
@@ -77,9 +59,9 @@ void ofApp::setup(){
     global.add(video.parameters);
     global.add(bubbles.parameters);
     global.add(forces.parameters);
-    global.add(swiper.parameters);
+ //   global.add(swiper.parameters);
     
-    for(int i = 0; i<3;i++){
+    for(int i = 0; i<2;i++){
         global.add(shaders[i].parameters);
     }
     
@@ -87,10 +69,14 @@ void ofApp::setup(){
     gui.loadFromFile("settings.xml");
 
     // set point size for led mesh in visualisation
-    glPointSize(.1);
+    glPointSize(3);
     ofEnableAlphaBlending();
     
-    
+//    assimpModel.loadModel("model2.3ds");
+//  //  cout << assimpModel.getNumMeshes()<<endl;
+//    
+//    for(int v = 0; v<assimpModel.getMeshCount();v++)
+//        cout<<assimpModel.getMeshNames()[v]<<endl;
 }
 
 //--------------------------------------------------------------
@@ -100,10 +86,10 @@ void ofApp::update(){
     
     bubbles.update();
     forces.update();
-    swiper.update();
+ //   swiper.update();
     video.update();
     
-    for(int i = 0; i<3;i++){
+    for(int i = 0; i<2;i++){
         shaders[i].update();
     }
     
@@ -112,15 +98,13 @@ void ofApp::update(){
     fbo->begin();
     ofBackground(0);
     video.draw();
-    for(int i = 0; i<3; i++){
+    for(int i = 0; i<2; i++){
         shaders[i].draw();
     }
 
-    if(maskChevrons)chevronMask.draw(0,0);
-    if(maskArches)archMask.draw(0,0);
     bubbles.draw();
     forces.draw();
-    swiper.draw();
+   // swiper.draw();
     
     fbo->end();
  
@@ -135,25 +119,14 @@ void ofApp::update(){
     utz.setUniformTexture("tex", fbo->getTexture(), 1);
     ofDrawRectangle(0, 0, fbo->getWidth(), fbo->getHeight());
     utz.end();
+    
+    if(test)testImg.draw(0,0,fbo->getWidth(),fbo->getHeight());
     final.end();
 
     
     // re calculate texture coords if mapping is changed
     if(calculateNewCoords){
-        for(int i = 0 ; i<model.leds.size();i++){
-            for(int v = 0; v<model.leds[i].mesh.getTexCoords().size();v++){
-                // find % of length we are along the mapping line (0-1)
-                float INC =float(v) / float(model.leds[i].mesh.getTexCoords().size());
-                
-                ofVec2f h1 = model.leds[i].handle1;
-                ofVec2f h2 = model.leds[i].handle2;
-                
-                // get the 2d coordinate of the point between h1 and h2 at "inc" percent
-                ofVec2f newCoord = h1.getInterpolated(h2, INC);
-                model.leds[i].mesh.setTexCoord(v, newCoord);
-            }
-        }
-        // uncheck calculate when done, so it does not run this loop constantly
+        model.calculateCoords();
         calculateNewCoords=false;
     }
     
@@ -177,6 +150,8 @@ void ofApp::draw(){
     ofPopMatrix();
     ofSetColor(255);
     
+    ofRotateX(-90);
+    ofScale(0.1f,0.1f,0.1f);
     // draw leds with final texture
     final.getTexture().bind();
     model.drawLeds();
@@ -186,17 +161,26 @@ void ofApp::draw(){
     ofSetColor(10);
     if(showProfile) model.drawProfiles();
     ofSetColor(255,0,0);
+    
+   
     cam.end();
 
     //for debug, draw texture and led-mapping
     if(debug){
         ofPushMatrix();
-        ofTranslate(ofGetWidth()-(fbo->getWidth() ) ,0);
+        
         ofSetColor(255);
-        final.draw(0,0,fbo->getWidth(),fbo->getHeight());
+      //  ofScale(0.2f,0.2f);
+        ofTranslate(ofGetWidth()-TEX_W, 0);
+        final.draw(0,0);
         ofSetColor(255, 0, 0,200);
         model.drawHandles();
+        
+        ofSetColor(255, 0, 255,200);
+        model.drawLedBoxes();
         ofPopMatrix();
+        
+        
     }
     
     ofFill();
@@ -214,9 +198,9 @@ void ofApp::keyPressed(int key){
     if(key=='-')meshVertic--;
     if(key=='d')debug = !debug;
     if(key=='s')model.saveMapping();
-    
+    if(key=='r')recordMask();
     if(key=='p')showProfile=!showProfile;
-    
+    if(key=='t')test=!test;
     if(key-'0'<4)
         video.loadNew("video"+ofToString(key-'0')+".mov");
     
@@ -265,7 +249,26 @@ void ofApp::keyPressed(int key){
 //    }
 //   cout << "x: "+ofToString(adjX)+"  z: "+ofToString(adjZ)<<endl;
 }
-
+void ofApp::recordMask(){
+    ofFbo f;
+    f.allocate(final.getWidth(), final.getHeight());
+    f.begin();
+    ofClear(0);
+    ofSetColor(255);
+    ofSetLineWidth(8);
+    for(int i = 0; i<model.leds.size();i++){
+        
+        ofDrawLine(model.leds[i].handle1,model.leds[i].handle2 );
+    }
+    for(int i = 0; i<model.chevleds.size();i++){
+        
+        ofDrawLine(model.chevleds[i].handle1,model.chevleds[i].handle2 );
+    }
+    f.end();
+    ofPixels pix;
+    f.readToPixels(pix);
+    ofSaveImage(pix, "texMask.png");
+}
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 

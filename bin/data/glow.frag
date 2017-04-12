@@ -18,6 +18,8 @@ uniform float alpha;
 uniform bool u_bool;
 uniform vec3 u_color;
 
+uniform sampler2D mask;
+
 float noise3D(vec3 p)
 {
     return fract(sin(dot(p ,vec3(12.9898,78.233,128.852))) * 43758.5453)*2.0-1.0;
@@ -161,8 +163,10 @@ void main( )
     
    // float mask = texture2D(mask,(gl_FragCoord.xy / iResolution.xy)).r;
     vec4 finalColor = vec4(0.0);
-   // if(mask>0.0){
-        
+    
+    vec4 alphaMask = texture2D(mask,gl_FragCoord.xy/iResolution.xy);
+    if(alphaMask.w>0.5){
+  
         vec2 uv = gl_FragCoord.xy / iResolution.xy*1.0-0.5;
         uv.x*=(iResolution.x/iResolution.y);
         uv*=10.*para3; //u_01
@@ -178,7 +182,7 @@ void main( )
         
         float v = 0.0;
         finalColor = vec4(vec3(n*u_color), a*alpha);
-   // }
+    }
     
     gl_FragColor = finalColor;
     
