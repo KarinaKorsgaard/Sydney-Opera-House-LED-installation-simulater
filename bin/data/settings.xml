@@ -20,11 +20,11 @@
 		<u_yGrid>0.239796</u_yGrid>
 		<up>0</up>
 	<ikeda>0</ikeda>
-		<color>176, 110, 62, 255</color>
+		<color>197, 160, 98, 255</color>
 		<tempo>1.78571</tempo>
-		<para1>0.234694</para1>
-		<para2>0.239796</para2>
-		<para3>0.244898</para3>
+		<para1>0.923469</para1>
+		<para2>1</para2>
+		<para3>1</para3>
 		<direction>0</direction>
 	<alpha>1</alpha>
 	</ikeda>
@@ -35,9 +35,9 @@
 <generalAdjus>
 		<blurSize>0.408163</blurSize>
 		<intensity>0.765306</intensity>
-		<saturation>0.331633</saturation>
-		<brightness>0.280612</brightness>
-		<contrast>2.39796</contrast>
+		<saturation>0.469388</saturation>
+		<brightness>0.30102</brightness>
+		<contrast>2.93367</contrast>
 	</generalAdjus>
 <trail>11</trail>
 	<linespeed>3.57</linespeed>
@@ -62,7 +62,7 @@
 	<alpha>1</alpha>
 	</glow>
 	<bubbles>
-		<color>47, 136, 255, 255</color>
+		<color>208, 111, 110, 255</color>
 		<tempo>39.7959</tempo>
 		<thickNess>10</thickNess>
 		<intensity>0.188776</intensity>

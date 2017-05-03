@@ -59,8 +59,7 @@ void ofApp::setup(){
     global.add(video.parameters);
     global.add(bubbles.parameters);
     global.add(forces.parameters);
- //   global.add(swiper.parameters);
-    
+
     for(int i = 0; i<2;i++){
         global.add(shaders[i].parameters);
     }
@@ -69,14 +68,10 @@ void ofApp::setup(){
     gui.loadFromFile("settings.xml");
 
     // set point size for led mesh in visualisation
-    glPointSize(3);
+    glPointSize(1);
     ofEnableAlphaBlending();
     
-//    assimpModel.loadModel("model2.3ds");
-//  //  cout << assimpModel.getNumMeshes()<<endl;
-//    
-//    for(int v = 0; v<assimpModel.getMeshCount();v++)
-//        cout<<assimpModel.getMeshNames()[v]<<endl;
+
 }
 
 //--------------------------------------------------------------
@@ -176,8 +171,8 @@ void ofApp::draw(){
         ofSetColor(255, 0, 0,200);
         model.drawHandles();
         
-        ofSetColor(255, 0, 255,200);
-        model.drawLedBoxes();
+      //  ofSetColor(255, 0, 255,200);
+     //   model.drawLedBoxes();
         ofPopMatrix();
         
         
@@ -203,52 +198,8 @@ void ofApp::keyPressed(int key){
     if(key=='t')test=!test;
     if(key-'0'<4)
         video.loadNew("video"+ofToString(key-'0')+".mov");
-    
-//    if(key == 'x')moveX=true;
-//    if(key == 'y')moveX=false;
-//    
-//    if(moveX){
-//        if(key=='+'){
-//          //  for(int i = model.shc.size()-5;i<model.shc.size();i++){
-//                for(int v = 0; v<model.shc.back().getNumVertices();v++){
-//                    model.shc.back().getVertices()[v].x ++;
-//                    
-//                }
-//                adjX++;
-//            //}
-//        }
-//        if(key=='-'){
-//         //   for(int i = model.shc.size()-5;i<model.shc.size();i++){
-//                for(int v = 0; v<model.shc.back().getNumVertices();v++){
-//                    model.shc.back().getVertices()[v].x --;
-//                    
-//                }
-//                adjX--;
-//           // }
-//        }
-//    }
-//    if(!moveX){
-//        if(key=='+'){
-//          //  for(int i = model.shc.size()-5;i<model.shc.size();i++){
-//                for(int v = 0; v<model.shc.back().getNumVertices();v++){
-//                    model.shc.back().getVertices()[v].z ++;
-//                    
-//                }
-//                adjZ++;
-//          //  }
-//        }
-//        if(key=='-'){
-//        //    for(int i = model.shc.size()-5;i<model.shc.size();i++){
-//                for(int v = 0; v<model.shc.back().getNumVertices();v++){
-//                    model.shc.back().getVertices()[v].z --;
-//                    
-//                }
-//                adjZ--;
-//     //       }
-//        }
-//    }
-//   cout << "x: "+ofToString(adjX)+"  z: "+ofToString(adjZ)<<endl;
 }
+
 void ofApp::recordMask(){
     ofFbo f;
     f.allocate(final.getWidth(), final.getHeight());
@@ -256,18 +207,27 @@ void ofApp::recordMask(){
     ofClear(0);
     ofSetColor(255);
     ofSetLineWidth(8);
+
     for(int i = 0; i<model.leds.size();i++){
         
-        ofDrawLine(model.leds[i].handle1,model.leds[i].handle2 );
+        ofDrawLine(model.leds[i].handle1,model.leds[i].handle2);
     }
     for(int i = 0; i<model.chevleds.size();i++){
-        
-        ofDrawLine(model.chevleds[i].handle1,model.chevleds[i].handle2 );
+
+        ofDrawLine(model.chevleds[i].handle1,model.chevleds[i].handle2);
     }
     f.end();
     ofPixels pix;
     f.readToPixels(pix);
     ofSaveImage(pix, "texMask.png");
+    
+ 
+    
+    ofDisableArbTex();
+    ofLoadImage(shaders[0].texMask,"texMask.png");
+    ofLoadImage(shaders[1].texMask,"texMask.png");
+    ofEnableArbTex();
+    
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){

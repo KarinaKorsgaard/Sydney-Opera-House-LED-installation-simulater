@@ -83,7 +83,7 @@ public:
         time+=ofGetLastFrameTime()*tempo;
         if(interpolatedAlpha>0){
             shader.begin();
-            shader.setUniform2f("iResolution", ofVec2f(2444,1607));
+            shader.setUniform2f("iResolution", ofVec2f(texMask.getWidth(),texMask.getHeight()));
             shader.setUniform1f("iGlobalTime", time);
             shader.setUniformTexture("mask", texMask, 1);
             shader.setUniform1i("u_bool", bool1);
@@ -92,7 +92,7 @@ public:
             shader.setUniform1f("para3", para3);
             shader.setUniform1f("alpha", interpolatedAlpha);
             shader.setUniform3f("u_color", ofVec3f(color->r/255.0f,color->g/255.0f,color->b/255.0f));
-            ofDrawRectangle(0, 0, 2444, 1607);
+            ofDrawRectangle(0, 0, texMask.getWidth(),texMask.getHeight());
             shader.end();
         }
     }
